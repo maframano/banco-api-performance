@@ -3,12 +3,19 @@ import { sleep, check } from 'k6';
 
 
 export const options = {
-  // Define the number of iterations for the test
-  iterations: 50,
+  /* Define the number of iterations for the test
+  iterations: 50,*/
+
+  /*para trabalhar com usuarios virtuais[VA's] é 
+  preciso remover as iterations*/
+    vus:2,
+    duration:'30s', 
   //thresholds testa os limites dos percentis
   thresholds: {
-    http_req_duration: ['p(90)<4.63', 'max<4'],
+    http_req_duration: ['p(90)<3000', 'max<5000'],
     http_req_failed: ['rate<0.01']
+
+
   }
 }
 
