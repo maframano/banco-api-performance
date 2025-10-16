@@ -3,13 +3,23 @@ import { sleep, check } from 'k6';
 
 
 export const options = {
-  /* Define the number of iterations for the test
+   /*Define the number of iterations for the test
   iterations: 50,*/
 
   /*para trabalhar com usuarios virtuais[VA's] é 
-  preciso remover as iterations*/
-    vus:2,
-    duration:'30s', 
+  preciso remover as iterations
+    vus:50,
+    duration:'30s', */
+
+    //stages serve para variar o acesso e a qt de usuarios ao longo to tempo
+    stages: [
+        {duration: '10s', target: 10 },
+        {duration: '20s', target: 10 },
+        {duration: '10s', target: 30 },
+        {duration: '20s', target: 30 },
+        {duration: '20s', target: 0 },
+    ],
+
   //thresholds testa os limites dos percentis
   thresholds: {
     http_req_duration: ['p(90)<3000', 'max<5000'],
@@ -18,7 +28,6 @@ export const options = {
 
   }
 }
-
 
 export default function () {
   const url = 'http://localhost:3000/login';
