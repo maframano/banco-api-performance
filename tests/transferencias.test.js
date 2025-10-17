@@ -1,6 +1,7 @@
 import http from 'k6/http';
 import { sleep, check } from 'k6';
 import { obterToken } from '../helpers/autenticacao.js';
+import { pegarBaseURL } from '../util/variaveis.js';
 
 export const options = {
   /*vus: 10,
@@ -14,7 +15,9 @@ export default function() {
   /*const url = 'http://localhost:3000/transferencias';
   colocado em variavel em linha de comando com o codigo 
   k6 run tests/transferencias.test.js -e BASE_URL=http://localhost:3000 */
-  const url = __ENV.BASE_URL + '/transferencias';
+ // const url = __ENV.BASE_URL + '/transferencias';linha substituida por:
+ const url = pegarBaseURL() + '/transferencias';
+ 
 
   const payload = JSON.stringify({
     contaOrigem: 1,
